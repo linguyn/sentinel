@@ -1,0 +1,10 @@
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+
+# Unity
+unity-client/Library/
+unity-client/Temp/
+unity-client/Obj/
+unity-client/Logs/
