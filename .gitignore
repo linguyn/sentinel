@@ -3,8 +3,21 @@ backend/.venv/
 __pycache__/
 *.pyc
 
-# Unity
-unity-client/Library/
-unity-client/Temp/
-unity-client/Obj/
-unity-client/Logs/
+
+# Unity 
+/unity-client/[Ll]ibrary/
+/unity-client/[Tt]emp/
+/unity-client/[Oo]bj/
+/unity-client/[Bb]uild/
+/unity-client/[Bb]uilds/
+/unity-client/[Ll]ogs/
+/unity-client/[Uu]ser[Ss]ettings/
+/unity-client/[Mm]emoryCaptures/
+/unity-client/[Rr]ecordings/
+
+# Unity / IDE 
+/unity-client/*.csproj
+/unity-client/*.slnx
+/unity-client/*.suo
+/unity-client/*.user
+/unity-client/*.userprefs
