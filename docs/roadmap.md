@@ -4,38 +4,41 @@ STAGE 1
 
 Data Flow: 
 
-															Unity Game State 
+															  Unity Game State 
 																	 | 
 																	 | 
 																	 | 
 																	 |
-															extract information 
+															 extract information 
 																	 | 
 															         | 
 																	 |
 																	 |
-																Observation 
+																 Observation 
 																	 | 
 																	 | HTTP request 
 																	 | body: JSON 
 																	 |
-															FastAPI backend 
+															  FastAPI backend 
 																	 | 
 																	 | 
 															         | 
 																	 |
-															Action/Decision 
+															   Action/Decision 
 																	 | 
 																	 | HTTP response 
 																	 | body: JSON 
 																	 | 
-																 UNITY
+																   UNITY
 																	 |
 																	 |
 																	 |
 																	 |
 															Execute the actions 
 																
-															
 
+---------------------------------------
+STAGE 2
+---------------------------------------
 
+Unity ---> create Observation object ---> serialize to JSON ---> send HTTP ---> FastAPI ---> return action ---> Unity receives responses
