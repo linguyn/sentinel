@@ -1,39 +1,39 @@
 
 ## STRUCTURE
 
-                                                                  Unity (client)
-                                                                        |
-                                                                        |
-                                                                Game State/Observation
-                                                                        |
-                                                                        | HTTP request
-                                                                        | body: JSON  
-                                                                  FastAPI Backend 
-                                                                        |
-                                                                        | 
-                                                                AI Agent - test logic
-                                                                        |
-                                                                        |
-                                                                      Action 
-                                                                        |
-                                                                        | HTTP response
-                                                                        | body: JSON
-                                                                      Unity
-                                                                        |
-                                                                        |
-                                                                    Execute Actions 
-                                                                        | 
-                                                                        |
-                                                                      Logs
-                                                                        | 
-                                                                        | 
-                                                                    Database 
-                                                                        | 
-                                                                        | 
-                                                                    Bug Detector 
-                                                                        | 
-                                                                        | 
-                                                                    Bug Report 
+                                                                Unity (client)
+                                                                    |
+                                                                    |
+                                                            Game State/Observation
+                                                                    |
+                                                                    | HTTP request
+                                                                    | body: JSON  
+                                                                FastAPI Backend 
+                                                                    |
+                                                                    | 
+                                                            AI Agent - test logic
+                                                                    |
+                                                                    |
+                                                                  Action 
+                                                                    |
+                                                                    | HTTP response
+                                                                    | body: JSON
+                                                                  Unity
+                                                                    |
+                                                                    |
+                                                              Execute Actions 
+                                                                    | 
+                                                                    |
+                                                                   Logs
+                                                                    | 
+                                                                    | 
+                                                                 Database 
+                                                                    | 
+                                                                    | 
+                                                                Bug Detector 
+                                                                    | 
+                                                                    | 
+                                                                Bug Report 
 
 **Stage 1** — Backend boundary.
 **Stage 2** — Unity ↔ Backend.

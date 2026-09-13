@@ -29,16 +29,18 @@ Data Flow:
 																	 | HTTP response 
 																	 | body: JSON 
 																	 | 
-																   UNITY
+																   Unity
 																	 |
 																	 |
 																	 |
 																	 |
-															Execute the actions 
+															 Execute the actions 
 																
 
 ---------------------------------------
 STAGE 2
 ---------------------------------------
 
-Unity ---> create Observation object ---> serialize to JSON ---> send HTTP ---> FastAPI ---> return action ---> Unity receives responses
+Data flow: 
+
+**Unity** ---> create Observation object ---> serialize to JSON ---> send HTTP ---> **FastAPI** ---> return action ---> **Unity receives responses**
