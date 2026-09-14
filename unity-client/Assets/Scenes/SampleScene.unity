@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 1457318222}
   - component: {fileID: 1457318221}
   - component: {fileID: 1457318225}
+  - component: {fileID: 1457318226}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -558,6 +559,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5dec998e2bb6f4d8f797bef26da3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::APISerializationTest
+  observation:
+    has_key: 0
+    door_locked: 0
+--- !u!114 &1457318226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457318220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5c0dd44da7e0140a41b5de49f1568d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ApiClients
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
