@@ -21,3 +21,4 @@ __pycache__/
 /unity-client/*.suo
 /unity-client/*.user
 /unity-client/*.userprefs
+/unity-client/.vs/
