@@ -1,13 +1,10 @@
 ﻿using UnityEngine; 
 using UnityEngine.Networking;
-using System.Threading.Tasks;
-using System;
 
 /*ApiClients: responsible for backend communication*/
 
 public class ApiClients : MonoBehaviour {
 
-    UnityWebRequestAsyncOperation asyncOP; 
     string webURL = "http://127.0.0.1:8000";
 
     async Awaitable Start() {
@@ -22,20 +19,22 @@ public class ApiClients : MonoBehaviour {
         Debug.Log(result); 
     }
 
-    private async Task<string> AsyncPostRequest(string json) {
-        UnityWebRequest request = UnityWebRequest.Post(webURL + "/action", json, "application/json");
-        asyncOP = request.SendWebRequest();
-        Awaitable awaitable = Awaitable.FromAsyncOperation(asyncOP);
-        await awaitable; 
+    private async Awaitable<string> AsyncPostRequest(string json) {
+        using(UnityWebRequest request = UnityWebRequest.Post(webURL + "/action", json, "application/json"))
+        {
+            UnityWebRequestAsyncOperation asyncOP = request.SendWebRequest();
+            Awaitable awaitable = Awaitable.FromAsyncOperation(asyncOP);
+            await awaitable; 
 
-        if (request.result != UnityWebRequest.Result.Success) {
-            Debug.Log(request.error);
-            Debug.Log(request.responseCode);
-            return asyncOP.webRequest.downloadHandler.text;
-        } else {
-            Debug.Log(request.responseCode);
-            return asyncOP.webRequest.downloadHandler.text; 
+            if (request.result != UnityWebRequest.Result.Success) {
+                Debug.Log(request.error);
+                Debug.Log(request.responseCode);
+            } else {
+                Debug.Log(request.responseCode); 
+            }
+
+            return request.downloadHandler.text;
         }
-        
     }
+
 }
