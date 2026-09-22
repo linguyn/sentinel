@@ -13,8 +13,7 @@ def get_health():
 
 @app.post('/action')
 def send_action(act: Observation): 
-    response = {
-        "has_key": act.has_key, 
+    response = { 
         "action": "move",
         "position": "12.2 , 3.4, 5.4"
     }
