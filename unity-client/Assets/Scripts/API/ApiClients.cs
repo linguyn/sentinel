@@ -15,9 +15,21 @@ public class ApiClients : MonoBehaviour {
 
         string json = JsonUtility.ToJson(observation); 
 
-        var result = await AsyncPostRequest(json);
-        Debug.Log(result); 
+        var response = await AsyncPostRequest(json);
+        if (response == null) { return; }
+        Debug.Log("Response: " + response);
+        
+        string objectData = GetActionResponseString(response);
+        Debug.Log("Action: " + objectData); 
     }
+
+
+    public string GetActionResponseString(string json) {
+        ActionResponse actionResponse = JsonUtility.FromJson<ActionResponse>(json);
+
+        return actionResponse.action;
+    }
+
 
     private async Awaitable<string> AsyncPostRequest(string json) {
         using(UnityWebRequest request = UnityWebRequest.Post(webURL + "/action", json, "application/json"))
@@ -27,13 +39,13 @@ public class ApiClients : MonoBehaviour {
             await awaitable; 
 
             if (request.result != UnityWebRequest.Result.Success) {
-                Debug.Log(request.error);
-                Debug.Log(request.responseCode);
+                Debug.Log("Code: " + request.responseCode + "\nError: " + request.error);
             } else {
-                Debug.Log(request.responseCode); 
+                Debug.Log("Code: " + request.responseCode);
+                return request.downloadHandler.text;
             }
 
-            return request.downloadHandler.text;
+            return null;
         }
     }
 
