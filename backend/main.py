@@ -16,7 +16,7 @@ def send_action(act: Observation):
     response = {
         "has_key": act.has_key, 
         "action": "move",
-        "position": "12.2 , 3.4, 5.4"
+        "position": "12.2, 3.4, 5.4"
     }
 
     return response
