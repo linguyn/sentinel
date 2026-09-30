@@ -1,4 +1,5 @@
-﻿using UnityEngine; 
+﻿using Unity.VisualScripting;
+using UnityEngine; 
 using UnityEngine.Networking;
 
 /*ApiClients: responsible for backend communication*/
@@ -6,6 +7,7 @@ using UnityEngine.Networking;
 public class ApiClients : MonoBehaviour {
 
     string webURL = "http://127.0.0.1:8000";
+    string jsonResponse;
 
     async Awaitable Start() {
         Observation observation = new Observation {
@@ -13,14 +15,14 @@ public class ApiClients : MonoBehaviour {
             door_locked = false
         };
 
-        string json = JsonUtility.ToJson(observation); 
+        string json = JsonUtility.ToJson(observation);
 
         var response = await AsyncPostRequest(json);
         if (response == null) { return; }
         Debug.Log("Response: " + response);
-        
+
         string objectData = GetActionResponseString(response);
-        Debug.Log("Action: " + objectData); 
+        Debug.Log("Action: " + objectData);
     }
 
 
