@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     // Speed variables
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float sprintSpeed = 6f;
@@ -17,26 +17,20 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement variables
     [SerializeField] private bool canMove = true;
-    private InputAction moveAction;
-    private PlayerInput playerInput;
-    private Vector2 moveInput;
     private Vector3 moveDirection;
     private CharacterController charController;
     private Vector3 moveVector;
-    private Vector3 cameraForward;
-    private Vector3 cameraRight;
+
 
     // Rotation variables 
     [SerializeField] private float rotationSpeed = 5f;
     private Quaternion targetRotation;
 
     // Sprint variables
-    private InputAction sprintAction;
     private bool sprintRequested;
     private bool isSprinting;
 
     //Jump variables
-    private InputAction jumpAction;
     [SerializeField] private float jumpHeight = 2f;
 
     // Crouch variables
@@ -46,8 +40,6 @@ public class PlayerMovement : MonoBehaviour
     private float verticalVelocity = 0f;
     [SerializeField] private float gravity = -9.81f;
 
-    //Camera
-    [SerializeField] private Transform cameraTransform;
 
     //Animation variables
     private Animator animator;
@@ -63,13 +55,7 @@ public class PlayerMovement : MonoBehaviour
         }
         verticalVelocity += gravity * Time.deltaTime;
     }
-    private void HandleMovement() //Function to handle player movement
-    {
-        moveInput = moveAction.ReadValue<Vector2>();
-        cameraForward = new Vector3(cameraTransform.forward.x, 0f, cameraTransform.forward.z).normalized;
-        cameraRight = new Vector3(cameraTransform.right.x, 0f, cameraTransform.right.z).normalized;
-        moveDirection = (moveInput.x * cameraRight + moveInput.y * cameraForward).normalized;
-    }
+
 
     private void HandlePlayer() //Function to move the player
     {
@@ -89,9 +75,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleSprint() //Function to handle sprinting
     {
-        bool isMoving = moveInput != Vector2.zero;
+        bool isMoving = moveDirection.sqrMagnitude > 0.001f;
 
-        sprintRequested = sprintAction.IsPressed();
+        sprintRequested = CommonIntent.HumanAction.HasFlag(PlayerAction.Sprint);
 
         isSprinting = sprintRequested && !playerStamina.IsExhausted && isMoving && !playerCrouch.IsCrouching;
 
@@ -117,9 +103,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if (charController.isGrounded && jumpAction.WasPressedThisFrame()) {
+        if (charController.isGrounded && CommonIntent.HumanAction.HasFlag(PlayerAction.Jump)) {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+        CommonIntent.HumanAction &= ~PlayerAction.Jump;
     }
 
     private void HandleAnimation() //Function to handle player animation (Idle, Walking, Sprinting)
@@ -141,31 +128,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
         charController = GetComponent<CharacterController>();
-        moveAction = playerInput.actions["Move"];
-        sprintAction = playerInput.actions["Sprint"];
-        jumpAction = playerInput.actions["Jump"];
         animator = GetComponentInChildren<Animator>();
         playerStamina = GetComponent<PlayerVitals>();
         playerCrouch = GetComponent<PlayerCrouch>();
+
     }
-    private void OnEnable()
-    {
-        moveAction.Enable();
-        sprintAction.Enable();
-        jumpAction.Enable();
-    }
-    private void OnDisable()
-    {
-        moveAction.Disable();
-        sprintAction.Disable();
-        jumpAction.Disable();
-    }
+
     private void Update()
     {
+        moveDirection = CommonIntent.MoveDirection;
+
         if (canMove) {
-            HandleMovement();
             HandleJump();
             HandleGravity();
             HandleSprint();
