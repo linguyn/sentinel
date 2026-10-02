@@ -15,7 +15,8 @@ public class HumanIntent : MonoBehaviour {
     private InputAction moveAction;
     private InputAction sprintAction;
     private InputAction jumpAction;
- 
+    private InputAction crouchAction;
+
 
     private void InputToDirection() {
         moveInput = moveAction.ReadValue<Vector2>();
@@ -35,6 +36,12 @@ public class HumanIntent : MonoBehaviour {
         if (jumpAction.WasPressedThisFrame()) {
             CommonIntent.HumanAction |= PlayerAction.Jump; 
         }
+
+        if (crouchAction.IsPressed()) {
+            CommonIntent.HumanAction |= PlayerAction.Crouch;
+        } else { 
+            CommonIntent.HumanAction &= ~PlayerAction.Crouch; 
+        }
     }
 
 
@@ -43,18 +50,21 @@ public class HumanIntent : MonoBehaviour {
         moveAction = playerInput.actions["Move"];
         sprintAction = playerInput.actions["Sprint"];
         jumpAction = playerInput.actions["Jump"];
+        crouchAction = playerInput.actions["Crouch"];
     }
 
     private void OnEnable() {
         moveAction?.Enable();
         sprintAction?.Enable();
         jumpAction?.Enable();
+        crouchAction?.Enable();
     }
 
     private void OnDisable() {
         moveAction?.Disable();
         sprintAction?.Disable();
         jumpAction?.Disable();
+        crouchAction.Disable();
 
         CommonIntent.MoveDirection = Vector3.zero;
         CommonIntent.HumanAction = PlayerAction.None;

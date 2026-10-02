@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class PlayerCrouch : MonoBehaviour
 {
-    private PlayerInput playerInput;
-    private InputAction crouchAction;
     private CharacterController characterController;
 
     [Header("Crouch Configuration")]
@@ -12,7 +10,7 @@ public class PlayerCrouch : MonoBehaviour
     [SerializeField] private float crouchTransitionSpeed = 4f;
 
     //Standing config of the character controller
-    [SerializeField] private float standingHeight;
+    private float standingHeight;
     private Vector3 standingCenter;
     private float standingBottom;
 
@@ -22,9 +20,9 @@ public class PlayerCrouch : MonoBehaviour
 
     private void UpdateCrouchState() {
 
-        CrouchRequested = crouchAction.IsPressed();
+        CrouchRequested = CommonIntent.HumanAction.HasFlag(PlayerAction.Crouch);
 
-        IsCrouching = CrouchRequested ? true : false; 
+        IsCrouching = CrouchRequested; 
 
     }
 
@@ -54,19 +52,9 @@ public class PlayerCrouch : MonoBehaviour
         characterController.center = newCenter;
     }
 
-    private void OnEnable() {
-        crouchAction.Enable(); 
-    }
-
-    private void OnDisable() {
-        crouchAction.Disable();
-    }
 
     void Awake() {
-        playerInput = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
-
-        crouchAction = playerInput.actions["Crouch"];
 
         standingHeight = characterController.height;
         standingCenter = characterController.center;
