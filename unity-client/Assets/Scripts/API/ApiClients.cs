@@ -21,15 +21,14 @@ public class ApiClients : MonoBehaviour {
         if (response == null) { return; }
         Debug.Log("Response: " + response);
 
-        string objectData = GetActionResponseString(response);
-        Debug.Log("Action: " + objectData);
+        ActionResponse objectData = GetActionResponseString(response);
     }
 
 
-    public string GetActionResponseString(string json) {
+    public ActionResponse GetActionResponseString(string json) {
         ActionResponse actionResponse = JsonUtility.FromJson<ActionResponse>(json);
 
-        return actionResponse.action;
+        return actionResponse;
     }
 
 
