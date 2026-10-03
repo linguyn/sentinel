@@ -515,6 +515,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 513775077751685451, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2083602918}
+    - targetCorrespondingSourceObject: {fileID: 513775077751685451, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2083602925}
   m_SourcePrefab: {fileID: 100100000, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
 --- !u!114 &1963709367 stripped
 MonoBehaviour:
@@ -656,6 +659,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4974643591679356409, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
   m_PrefabInstance: {fileID: 1592918004}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2083602925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083602911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5256161a847db6648903b444b50c6562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlMode
+  humanIntent: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
