@@ -16,6 +16,7 @@ public class HumanIntent : MonoBehaviour {
     private InputAction sprintAction;
     private InputAction jumpAction;
     private InputAction crouchAction;
+    private InputAction interactAction; 
 
 
     private void InputToDirection() {
@@ -32,25 +33,32 @@ public class HumanIntent : MonoBehaviour {
             CommonIntent.HumanAction |= PlayerAction.Sprint;
         }
 
+        if (crouchAction.IsPressed()) {
+            CommonIntent.HumanAction |= PlayerAction.Crouch;
+        } else {
+            CommonIntent.HumanAction &= ~PlayerAction.Crouch;
+        }
+
         /*One-shot actions*/
         if (jumpAction.WasPressedThisFrame()) {
             CommonIntent.HumanAction |= PlayerAction.Jump; 
         }
 
-        if (crouchAction.IsPressed()) {
-            CommonIntent.HumanAction |= PlayerAction.Crouch;
-        } else { 
-            CommonIntent.HumanAction &= ~PlayerAction.Crouch; 
-        }
+        if (interactAction.WasPressedThisFrame()) {
+            CommonIntent.HumanAction |= PlayerAction.Interact; 
+        } 
+
+        
     }
 
 
-    private void Start() {
+    private void Awake() {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         sprintAction = playerInput.actions["Sprint"];
         jumpAction = playerInput.actions["Jump"];
         crouchAction = playerInput.actions["Crouch"];
+        interactAction = playerInput.actions["Interact"];
     }
 
     private void OnEnable() {
@@ -58,6 +66,7 @@ public class HumanIntent : MonoBehaviour {
         sprintAction?.Enable();
         jumpAction?.Enable();
         crouchAction?.Enable();
+        interactAction?.Enable(); 
     }
 
     private void OnDisable() {
@@ -65,6 +74,7 @@ public class HumanIntent : MonoBehaviour {
         sprintAction?.Disable();
         jumpAction?.Disable();
         crouchAction.Disable();
+        interactAction?.Disable();
 
         CommonIntent.MoveDirection = Vector3.zero;
         CommonIntent.HumanAction = PlayerAction.None;

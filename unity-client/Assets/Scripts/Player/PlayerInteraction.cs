@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour {
-    private Transform playerTransform;
     private PlayerInput playerInput;
     private InputAction interactAction;
 
@@ -46,10 +45,12 @@ public class PlayerInteraction : MonoBehaviour {
 
 
     /*Handle player input for interaction*/
-    private void HandleInteractionInput() {
-        if (CurrentInteractable != null && interactAction.WasPressedThisFrame()) {
+    private void HandleInteractionRequest() {
+        if (CurrentInteractable != null && CommonIntent.HumanAction.HasFlag(PlayerAction.Interact)) {
             CurrentInteractable.Interact();
-        }       
+        }
+
+        CommonIntent.HumanAction &= ~PlayerAction.Interact;
     }
 
 
@@ -87,15 +88,13 @@ public class PlayerInteraction : MonoBehaviour {
     }
 
     private void Awake() {
-        playerTransform = GetComponent<Transform>();
         playerInput = GetComponent<PlayerInput>();
         interactAction = playerInput.actions["Interact"];
-
         binding = interactAction.GetBindingDisplayString();
     }
     void Update() {
         DetectInteractable();
-        HandleInteractionInput(); 
+        HandleInteractionRequest(); 
         UpdateInteractionUI();
     }
 
