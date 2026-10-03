@@ -118,6 +118,8 @@ public class PlayerMovement : MonoBehaviour
         } else {
             animator.SetFloat("Speed", 0f, 0.15f, Time.deltaTime); // Idle animation
         }
+
+        
     }
     
     public void SetMovementEnabled(bool value) //Function to enable/disable player movement
@@ -131,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         charController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         playerStamina = GetComponent<PlayerVitals>();
-        playerCrouch = GetComponent<PlayerCrouch>();
+        playerCrouch = GetComponent<PlayerCrouch>(); 
 
     }
 

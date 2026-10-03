@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class HumanIntent : MonoBehaviour {
 
     
@@ -8,7 +9,6 @@ public class HumanIntent : MonoBehaviour {
     private Vector3 cameraRight;
     [SerializeField] private Transform cameraTransform;
 
-    private Vector3 moveDirection;
     private Vector2 moveInput;
 
     private PlayerInput playerInput; 
@@ -31,6 +31,8 @@ public class HumanIntent : MonoBehaviour {
         /*Continuos actions*/
         if (sprintAction.IsPressed()) {
             CommonIntent.HumanAction |= PlayerAction.Sprint;
+        } else {
+            CommonIntent.HumanAction &= ~PlayerAction.Sprint;
         }
 
         if (crouchAction.IsPressed()) {
@@ -47,7 +49,6 @@ public class HumanIntent : MonoBehaviour {
         if (interactAction.WasPressedThisFrame()) {
             CommonIntent.HumanAction |= PlayerAction.Interact; 
         } 
-
         
     }
 
@@ -73,7 +74,7 @@ public class HumanIntent : MonoBehaviour {
         moveAction?.Disable();
         sprintAction?.Disable();
         jumpAction?.Disable();
-        crouchAction.Disable();
+        crouchAction?.Disable();
         interactAction?.Disable();
 
         CommonIntent.MoveDirection = Vector3.zero;
@@ -86,3 +87,6 @@ public class HumanIntent : MonoBehaviour {
         ActionRequest();
     }
 }
+
+
+
