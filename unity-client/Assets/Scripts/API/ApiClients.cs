@@ -1,36 +1,44 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using Unity.VisualScripting;
 using UnityEngine; 
 using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 /*ApiClients: responsible for backend communication*/
 
 public class ApiClients : MonoBehaviour {
 
     string webURL = "http://127.0.0.1:8000";
-    string jsonResponse;
+    private ActionResponse actionResponse; 
 
     async Awaitable Start() {
-        Observation observation = new Observation {
-            has_key = true,
-            door_locked = false
-        };
 
-        string json = JsonUtility.ToJson(observation);
+        /*Get the World Observation and send WO to backend*/
+        WorldObservationManager.SetWorldObservation();
 
-        var response = await AsyncPostRequest(json);
-        if (response == null) { return; }
-        Debug.Log("Response: " + response);
+        var observations = WorldObservationManager.GetWorldObservation();
 
-        ActionResponse objectData = GetActionResponseString(response);
+        string json = JsonConvert.SerializeObject(observations);
+
+        string jsonResponse = await AsyncPostRequest(json);
+        if (jsonResponse == null) { return; }
+
+        actionResponse = JsonUtility.FromJson<ActionResponse>(jsonResponse);
+
+        Debug.Log("Action: " + actionResponse.action);
+        Debug.Log("Position: x: " + actionResponse.position.x 
+                        + ", y: " + actionResponse.position.y + ", z: " + actionResponse.position.z);    
     }
 
 
-    public ActionResponse GetActionResponseString(string json) {
-        ActionResponse actionResponse = JsonUtility.FromJson<ActionResponse>(json);
-
-        return actionResponse;
+    public ActionResponse GetActionResponse {
+        get { return actionResponse; }
     }
 
+    public void ClearActionResponse() {
+        actionResponse = null;
+    }
 
     private async Awaitable<string> AsyncPostRequest(string json) {
         using(UnityWebRequest request = UnityWebRequest.Post(webURL + "/action", json, "application/json"))
