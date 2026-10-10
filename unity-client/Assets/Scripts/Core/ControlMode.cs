@@ -11,8 +11,8 @@ public class ControlMode : MonoBehaviour {
 
     [SerializeField]
     private HumanIntent humanIntent; 
-    //[SerializeField]
-    //private AIIntent aiIntent;
+    [SerializeField]
+    private AIIntent aiIntent;
 
     public ControlSource CurrentMode {
         get { return currentMode; }
@@ -31,7 +31,6 @@ public class ControlMode : MonoBehaviour {
     }
 
     private void Awake() {
-        humanIntent = GetComponent<HumanIntent>();
         HandleModeSwitch();
     }
 }

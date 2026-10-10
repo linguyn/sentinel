@@ -12,12 +12,7 @@ public class ApiClients : MonoBehaviour {
     string webURL = "http://127.0.0.1:8000";
     private ActionResponse actionResponse; 
 
-    async Awaitable Start() {
-
-        /*Get the World Observation and send WO to backend*/
-        WorldObservationManager.SetWorldObservation();
-
-        var observations = WorldObservationManager.GetWorldObservation();
+    public async Awaitable SendObservation(List<EntityObservation> observations) {
 
         string json = JsonConvert.SerializeObject(observations);
 

@@ -1,17 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 public class AIIntent : MonoBehaviour {
-
-    ApiClients apiClients;
 
     private Vector3 targetPosition;
     [SerializeField] private float stopDistance = 0.2f;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private ApiClients apiClients; 
 
     public bool ActionCompleted { get; private set; }
 
     private void HandleActionResponse() {
-        ActionResponse response= apiClients.GetActionResponse;
+        ActionResponse response = apiClients.GetActionResponse;
 
         if (response == null) { return; }
 
@@ -41,8 +41,8 @@ public class AIIntent : MonoBehaviour {
 
     }
 
-    private void Awake() {
-        apiClients = GetComponent<ApiClients>();
+    public void ResetActionCompletion() {
+        ActionCompleted = false;
     }
 
     private void Update() {
