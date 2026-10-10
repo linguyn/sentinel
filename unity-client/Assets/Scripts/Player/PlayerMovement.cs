@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     // Rotation variables 
     [SerializeField] private float rotationSpeed = 5f;
     private Quaternion targetRotation;
-
+        
     // Sprint variables
     private bool sprintRequested;
     private bool isSprinting;
@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isMoving = moveDirection.sqrMagnitude > 0.001f;
 
-        sprintRequested = CommonIntent.HumanAction.HasFlag(PlayerAction.Sprint);
+        sprintRequested = CommonIntent.Actions.HasFlag(PlayerAction.Sprint);
 
         isSprinting = sprintRequested && !playerStamina.IsExhausted && isMoving && !playerCrouch.IsCrouching;
 
@@ -103,10 +103,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJump()
     {
-        if (charController.isGrounded && CommonIntent.HumanAction.HasFlag(PlayerAction.Jump)) {
+        if (charController.isGrounded && CommonIntent.Actions.HasFlag(PlayerAction.Jump)) {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-        CommonIntent.HumanAction &= ~PlayerAction.Jump;
+        CommonIntent.Actions &= ~PlayerAction.Jump;
     }
 
     private void HandleAnimation() //Function to handle player animation (Idle, Walking, Sprinting)

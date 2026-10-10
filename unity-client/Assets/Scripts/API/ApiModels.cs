@@ -1,16 +1,33 @@
-using System; 
+using System;
+using System.Collections.Generic;
 
 /**ApiModels(DTO): blueprints that responsible for creating data shapes/classes for backend communication**/
 
-[Serializable]
-public class Observation
-{
-    public bool has_key;
-    public bool door_locked;
+[System.Serializable]
+public class StateEntry {
+    public string key;
+    public string value;
 }
 
-[Serializable]
+[System.Serializable]
+public class EntityObservation
+{
+    public string id;
+    public string type;
+    public Position position;
+    public List<StateEntry> state;
+}
+
+[System.Serializable]
+public class Position {
+    public float x;
+    public float y;
+    public float z;
+}
+
+[System.Serializable]
 public class ActionResponse {
 
-    public string action;  
+    public string action;
+    public Position position; 
 }

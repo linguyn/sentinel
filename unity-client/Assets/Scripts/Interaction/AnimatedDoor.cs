@@ -35,8 +35,11 @@ public class AnimatedDoor : MonoBehaviour, IInteractable {
 
     private Vector3 forward; 
     private Coroutine doorCoroutine;
-    private Coroutine handleCoroutine; 
+    private Coroutine handleCoroutine;
 
+
+    public bool IsLocked => isLocked;
+    public DoorState CurrentDoorState => currentDoorState;
 
     public string GetPrompt() {
         if (isLocked) { return "Locked"; }

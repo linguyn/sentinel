@@ -20,7 +20,7 @@ public class PlayerCrouch : MonoBehaviour
 
     private void UpdateCrouchState() {
 
-        CrouchRequested = CommonIntent.HumanAction.HasFlag(PlayerAction.Crouch);
+        CrouchRequested = CommonIntent.Actions.HasFlag(PlayerAction.Crouch);
 
         IsCrouching = CrouchRequested; 
 

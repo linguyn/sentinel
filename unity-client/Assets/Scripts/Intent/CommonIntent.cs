@@ -21,7 +21,7 @@ public class CommonIntent {
         set { moveDirection = value; }
     }
 
-    public static PlayerAction HumanAction {
+    public static PlayerAction Actions {
         get { return actions;  }
         set { actions = value; }
     }

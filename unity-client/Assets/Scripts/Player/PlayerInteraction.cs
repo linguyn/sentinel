@@ -46,11 +46,11 @@ public class PlayerInteraction : MonoBehaviour {
 
     /*Handle player input for interaction*/
     private void HandleInteractionRequest() {
-        if (CurrentInteractable != null && CommonIntent.HumanAction.HasFlag(PlayerAction.Interact)) {
+        if (CurrentInteractable != null && CommonIntent.Actions.HasFlag(PlayerAction.Interact)) {
             CurrentInteractable.Interact();
         }
 
-        CommonIntent.HumanAction &= ~PlayerAction.Interact;
+        CommonIntent.Actions &= ~PlayerAction.Interact;
     }
 
 

@@ -18,7 +18,6 @@ public class HumanIntent : MonoBehaviour {
     private InputAction crouchAction;
     private InputAction interactAction; 
 
-
     private void InputToDirection() {
         moveInput = moveAction.ReadValue<Vector2>();
         cameraForward = new Vector3(cameraTransform.forward.x, 0f, cameraTransform.forward.z).normalized;
@@ -30,24 +29,24 @@ public class HumanIntent : MonoBehaviour {
 
         /*Continuos actions*/
         if (sprintAction.IsPressed()) {
-            CommonIntent.HumanAction |= PlayerAction.Sprint;
+            CommonIntent.Actions |= PlayerAction.Sprint;
         } else {
-            CommonIntent.HumanAction &= ~PlayerAction.Sprint;
+            CommonIntent.Actions &= ~PlayerAction.Sprint;
         }
 
         if (crouchAction.IsPressed()) {
-            CommonIntent.HumanAction |= PlayerAction.Crouch;
+            CommonIntent.Actions |= PlayerAction.Crouch;
         } else {
-            CommonIntent.HumanAction &= ~PlayerAction.Crouch;
+            CommonIntent.Actions &= ~PlayerAction.Crouch;
         }
 
         /*One-shot actions*/
         if (jumpAction.WasPressedThisFrame()) {
-            CommonIntent.HumanAction |= PlayerAction.Jump; 
+            CommonIntent.Actions |= PlayerAction.Jump; 
         }
 
         if (interactAction.WasPressedThisFrame()) {
-            CommonIntent.HumanAction |= PlayerAction.Interact; 
+            CommonIntent.Actions |= PlayerAction.Interact; 
         } 
         
     }
@@ -78,7 +77,7 @@ public class HumanIntent : MonoBehaviour {
         interactAction?.Disable();
 
         CommonIntent.MoveDirection = Vector3.zero;
-        CommonIntent.HumanAction = PlayerAction.None;
+        CommonIntent.Actions = PlayerAction.None;
     }
 
 
