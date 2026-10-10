@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ad10a188d7abc254abca7c8945035158
+guid: 00a7bc32de7f0e2499791bfd92a664e5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -102,7 +102,7 @@ TextureImporter:
         serializedVersion: 2
         x: 44
         y: 32
-        width: 8
+        width: 9
         height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c34f925e87fffe4e9fdeeb9d83a77c9
-      internalID: -548281022
+      spriteID: 733c5fe78da3fbc4687f533353c450b1
+      internalID: 1659597064
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abd3bcf7896d35345a7072f3c0ad97bf
-      internalID: -1510299113
+      spriteID: d33c6c877c2a5634880b15da316c78df
+      internalID: -1502838043
       vertices: []
       indices: 
       edges: []
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b050f8fe1a29a8479ce68cfcc645492
-      internalID: -593642072
+      spriteID: ad33f447d1f62b74fb13fa62b432552e
+      internalID: -933369465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Avatar_L
+      name: Avatar_L1
       rect:
         serializedVersion: 2
         x: 23
@@ -178,8 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 749f774f6ceba204fa8ba0aaab1f4225
-      internalID: -317723484
+      spriteID: 6a08ec38caaddd2499674fa616782cd4
+      internalID: 1265862534
       vertices: []
       indices: 
       edges: []
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3f572d03ac028041968c70f34b3b471
-      internalID: 1849346783
+      spriteID: 4f3f186db3b726e489faefaaebba845d
+      internalID: 157099889
       vertices: []
       indices: 
       edges: []
@@ -222,8 +222,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fcfc5878b05ce5d46935a4187e69d668
-      internalID: -1271997183
+      spriteID: ec5330212e7c4154c92792b76441bdbe
+      internalID: -690951298
       vertices: []
       indices: 
       edges: []
@@ -244,8 +244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77a1d8aad94846b48ad9dded1db1bbf1
-      internalID: -1837727505
+      spriteID: 092ce499949213d43b698b6b90688bb8
+      internalID: -886992649
       vertices: []
       indices: 
       edges: []
@@ -254,7 +254,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e6a229a52a55b1d42af5f48856fa154f
+    spriteID: 6b4a55f2dd29f9542965d7ddb1cd78a6
     internalID: 0
     vertices: []
     indices: 
@@ -266,14 +266,13 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Avatar_D: -1837727505
-      Avatar_L: -317723484
-      Avatar_L2: 1849346783
-      Avatar_R: -1271997183
-      Avatar_S: -593642072
-      D: -1837727505
-      Play: -548281022
-      Stop: -1510299113
+      Avatar_D: -886992649
+      Avatar_L1: 1265862534
+      Avatar_L2: 157099889
+      Avatar_R: -690951298
+      Avatar_S: -933369465
+      Play: 1659597064
+      Stop: -1502838043
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

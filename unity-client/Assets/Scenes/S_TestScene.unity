@@ -485,15 +485,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SentinelUIController
   sessionManager: {fileID: 2018111205}
   aiButton: {fileID: 250135873}
-  playSprite: {fileID: -548281022, guid: ad10a188d7abc254abca7c8945035158, type: 3}
-  stopSprite: {fileID: -1510299113, guid: ad10a188d7abc254abca7c8945035158, type: 3}
+  playSprite: {fileID: 1659597064, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
+  stopSprite: {fileID: -1502838043, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
   avatarImage: {fileID: 324256842}
   avatarFrames:
-  - {fileID: -1837727505, guid: ad10a188d7abc254abca7c8945035158, type: 3}
-  - {fileID: -317723484, guid: ad10a188d7abc254abca7c8945035158, type: 3}
-  - {fileID: 1849346783, guid: ad10a188d7abc254abca7c8945035158, type: 3}
-  - {fileID: -1271997183, guid: ad10a188d7abc254abca7c8945035158, type: 3}
-  - {fileID: -593642072, guid: ad10a188d7abc254abca7c8945035158, type: 3}
+  - {fileID: -886992649, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
+  - {fileID: -933369465, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
+  - {fileID: 1265862534, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
+  - {fileID: 157099889, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
+  - {fileID: -690951298, guid: 00a7bc32de7f0e2499791bfd92a664e5, type: 3}
   frameDelay: 0.4
 --- !u!1 &539520635
 GameObject:
