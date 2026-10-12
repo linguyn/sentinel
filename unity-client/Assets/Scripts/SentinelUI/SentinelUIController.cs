@@ -13,8 +13,13 @@ public class SentinelUIController : MonoBehaviour {
 
     [Header("AI Avatar")]
     [SerializeField] private Image avatarImage;
+    [SerializeField] private Button avatarButton;
     [SerializeField] private Sprite[] avatarFrames;
     [SerializeField] private float frameDelay = 0.15f;
+
+    [Header("Debug Panels")]
+    [SerializeField] private CanvasGroup debugMonitorGroup;
+    [SerializeField] private CanvasGroup timerGraphGroup;
 
     private Coroutine avatarCoroutine;
 
@@ -31,10 +36,34 @@ public class SentinelUIController : MonoBehaviour {
 
     private void OnEnable() {
         sessionManager.OnSessionStateChanged += HandleSessionStateChanged;
+
+        if (avatarButton != null) {
+            avatarButton.onClick.AddListener(ToggleDebugPanels);
+        }
     }
 
     private void OnDisable() {
         sessionManager.OnSessionStateChanged -= HandleSessionStateChanged;
+
+        if (avatarButton != null) {
+            avatarButton.onClick.RemoveListener(ToggleDebugPanels);
+        }
+    }
+
+    private void ToggleDebugPanels() {
+        if (debugMonitorGroup == null || timerGraphGroup == null)
+            return;
+
+        bool visible = debugMonitorGroup.alpha <= 0f;
+        SetPanelVisibility(debugMonitorGroup, visible);
+        SetPanelVisibility(timerGraphGroup, visible);
+    }
+
+    private static void SetPanelVisibility(CanvasGroup panel, bool visible) {
+        // Hide the visuals without stopping the graph's rolling sample history.
+        panel.alpha = visible ? 1f : 0f;
+        panel.interactable = visible;
+        panel.blocksRaycasts = visible;
     }
 
     private void ToggleAI() {
