@@ -64,6 +64,11 @@ public class SessionManager : MonoBehaviour {
             while (IsRunning && !aiIntent.ActionCompleted) {
                 await Awaitable.NextFrameAsync();
             }
+
+            Debug.Log(
+                $"Action result: {aiIntent.Tracker.Status}, " +
+                $"Reason: {aiIntent.Tracker.FailureReason}"
+            );
         }
     }
 }

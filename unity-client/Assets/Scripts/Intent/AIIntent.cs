@@ -8,7 +8,23 @@ public class AIIntent : MonoBehaviour {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private ApiClients apiClients; 
 
-    public bool ActionCompleted { get; private set; }
+    [SerializeField] private float stuckLimit = 3f;
+    [SerializeField] private float minProgress = 0.05f;
+
+    private readonly ActionTracker actionTracker = new();
+
+    private ActionResponse trackedResponse;
+    private float lastProgressDistance;
+
+    public ActionTracker Tracker => actionTracker;
+
+    public bool ActionCompleted => actionTracker.IsFinished;
+
+    public Vector3 TargetPosition => targetPosition;
+
+    public void ResetActionCompletion() {
+        actionTracker.Reset();
+    }
 
     private void HandleActionResponse() {
         ActionResponse response = apiClients.GetActionResponse;
@@ -16,33 +32,79 @@ public class AIIntent : MonoBehaviour {
         if (response == null) { return; }
 
         string action = response.action.ToLower();
-        
-        /*Move*/
-        if (action == "move") {
-            targetPosition.x = response.position.x;
-            targetPosition.y = response.position.y;
-            targetPosition.z = response.position.z;
 
-            Vector3 direction = targetPosition - playerTransform.position;
+        /*Move*/
+        if (response.action == "move") {
+            // Detect a newly received command
+            if (!ReferenceEquals(trackedResponse, response)) {
+                trackedResponse = response;
+
+                if (response.position == null) {
+                    actionTracker.BeginAction("move");
+                    actionTracker.Fail("Missing target position");
+
+                    CommonIntent.MoveDirection = Vector3.zero;
+                    apiClients.ClearActionResponse();
+                    return;
+                }
+
+                targetPosition = new Vector3(
+                    response.position.x,
+                    response.position.y,
+                    response.position.z
+                );
+
+                Vector3 initialDirection =
+                    targetPosition - playerTransform.position;
+
+                initialDirection.y = 0f;
+
+                lastProgressDistance = initialDirection.magnitude;
+
+                actionTracker.BeginAction("move");
+            }
+
+            if (actionTracker.Status != ActionStatus.Running)
+                return;
+
+            actionTracker.Tick(Time.deltaTime);
+
+            Vector3 direction =
+                targetPosition - playerTransform.position;
 
             direction.y = 0f;
 
-            if (direction.magnitude <= stopDistance) {
+            float distance = direction.magnitude;
+
+            // SUCCESS
+            if (distance <= stopDistance) {
+                actionTracker.Succeed();
+
                 CommonIntent.MoveDirection = Vector3.zero;
-                ActionCompleted = true;
                 apiClients.ClearActionResponse();
                 return;
             }
 
-            ActionCompleted = false;
+            // PROGRESS
+            if (lastProgressDistance - distance >= minProgress) {
+                lastProgressDistance = distance;
+                actionTracker.ReportProgress();
+            }
+
+            // FAILURE
+            if (actionTracker.TimeWithoutProgress >= stuckLimit) {
+                actionTracker.Fail("STUCK");
+
+                CommonIntent.MoveDirection = Vector3.zero;
+                apiClients.ClearActionResponse();
+                return;
+            }
+
+            // CONTINUE MOVING
             CommonIntent.MoveDirection = direction.normalized;
         }
 
 
-    }
-
-    public void ResetActionCompletion() {
-        ActionCompleted = false;
     }
 
     private void Update() {
