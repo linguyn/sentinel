@@ -46,11 +46,26 @@ public class PlayerInteraction : MonoBehaviour {
 
     /*Handle player input for interaction*/
     private void HandleInteractionRequest() {
-        if (CurrentInteractable != null && CommonIntent.Actions.HasFlag(PlayerAction.Interact)) {
-            CurrentInteractable.Interact();
-        }
+        if (!CommonIntent.Actions.HasFlag(PlayerAction.Interact))
+            return;
 
         CommonIntent.Actions &= ~PlayerAction.Interact;
+        TryInteract(out _);
+    }
+
+    // Success means the request was delivered, not that the object changed state.
+    public bool TryInteract(out string failureReason) {
+        DetectInteractable();
+        IInteractable target = CurrentInteractable;
+
+        if (target == null) {
+            failureReason = "No interactable target in range";
+            return false;
+        }
+
+        target.Interact();
+        failureReason = null;
+        return true;
     }
 
 

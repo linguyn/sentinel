@@ -29,5 +29,15 @@ public class Position {
 public class ActionResponse {
 
     public string action;
-    public Position position; 
+    public Position position;
+    public string target_id;
+}
+
+
+[System.Serializable]
+public class ActionHistory {
+    public string action;
+    public string target_id;
+    public ActionStatus action_status;
+    public string reason; 
 }
