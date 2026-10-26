@@ -4,6 +4,8 @@ using Unity.VisualScripting;
 using UnityEngine; 
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 /*ApiClients: responsible for backend communication*/
 
@@ -12,18 +14,20 @@ public class ApiClients : MonoBehaviour {
     string webURL = "http://127.0.0.1:8000";
     private ActionResponse actionResponse; 
 
-    public async Awaitable SendObservation(List<EntityObservation> observations) {
+    public async Awaitable SendObservation(List<EntityObservation> observations, List<ActionHistory> history) {
 
-        string json = JsonConvert.SerializeObject(observations);
+        var payload = new {
+            observations,
+            history
+        };
+
+        string json = JsonConvert.SerializeObject(payload, new StringEnumConverter(new CamelCaseNamingStrategy()));
+
 
         string jsonResponse = await AsyncPostRequest(json);
         if (jsonResponse == null) { return; }
 
         actionResponse = JsonUtility.FromJson<ActionResponse>(jsonResponse);
-
-        Debug.Log("Action: " + actionResponse.action);
-        Debug.Log("Position: x: " + actionResponse.position.x 
-                        + ", y: " + actionResponse.position.y + ", z: " + actionResponse.position.z);    
     }
 
 

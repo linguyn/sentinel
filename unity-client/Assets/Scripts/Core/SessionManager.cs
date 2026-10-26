@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SessionManager : MonoBehaviour {
     [SerializeField] private ApiClients apiClients;
@@ -9,10 +10,14 @@ public class SessionManager : MonoBehaviour {
 
     public event System.Action<bool> OnSessionStateChanged;
 
+    private readonly List<ActionHistory> actionHistoryList = new(); 
+
+
     public async void StartSession() {
         if (IsRunning)
             return;
 
+        actionHistoryList.Clear();
         IsRunning = true;
         OnSessionStateChanged?.Invoke(true);
 
@@ -51,7 +56,7 @@ public class SessionManager : MonoBehaviour {
                 WorldObservationManager.GetWorldObservation();
 
 
-            await apiClients.SendObservation(observations);
+            await apiClients.SendObservation(observations, actionHistoryList);
 
             if (!IsRunning)
                 break;
@@ -65,10 +70,31 @@ public class SessionManager : MonoBehaviour {
                 await Awaitable.NextFrameAsync();
             }
 
-            Debug.Log(
-                $"Action result: {aiIntent.Tracker.Status}, " +
-                $"Reason: {aiIntent.Tracker.FailureReason}"
-            );
+            if (!IsRunning)
+                break;
+
+            RecordActionHistory();
         }
+    }
+
+    private void RecordActionHistory() {
+        ActionTracker tracker = aiIntent.Tracker;
+
+        if (!tracker.IsFinished) { return; }
+
+        ActionHistory history = new ActionHistory {
+            action = tracker.ActionName,
+            target_id = tracker.TargetId,
+            action_status = tracker.Status,
+            reason = tracker.FailureReason
+        };
+
+        actionHistoryList.Add(history);
+        Debug.Log(
+           $"History recorded: {history.action}, " +
+           $"Target: {history.target_id}, " +
+           $"Result: {history.action_status}, " +
+           $"Reason: {history.reason}"
+        );
     }
 }

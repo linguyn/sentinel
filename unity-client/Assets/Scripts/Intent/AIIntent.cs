@@ -40,7 +40,7 @@ public class AIIntent : MonoBehaviour {
                 trackedResponse = response;
 
                 if (response.position == null) {
-                    actionTracker.BeginAction("move");
+                    actionTracker.BeginAction("move", response.target_id);
                     actionTracker.Fail("Missing target position");
 
                     CommonIntent.MoveDirection = Vector3.zero;
@@ -105,6 +105,36 @@ public class AIIntent : MonoBehaviour {
         }
 
 
+
+        /*INTERACT*/
+        if (response.action == "interact") {
+            if (ReferenceEquals(trackedResponse, response))
+                return;
+
+            trackedResponse = response;
+            actionTracker.BeginAction("interact", response.target_id);
+
+            // Use the same interaction path as human input and consume this command once.
+            CommonIntent.Actions &= ~PlayerAction.Interact;
+            PlayerInteraction interaction = playerTransform != null
+                ? playerTransform.GetComponent<PlayerInteraction>()
+                : null;
+
+            try {
+                if (interaction == null || !interaction.isActiveAndEnabled) {
+                    actionTracker.Fail("PlayerInteraction is missing or disabled on the player");
+                } else if (interaction.TryInteract(out string reason)) {
+                    actionTracker.Succeed();
+                } else {
+                    actionTracker.Fail(reason);
+                }
+            } catch (System.Exception exception) {
+                actionTracker.Fail("Interaction threw an exception: " + exception.Message);
+                Debug.LogException(exception, this);
+            } finally {
+                apiClients.ClearActionResponse();
+            }
+        }
     }
 
     private void Update() {
