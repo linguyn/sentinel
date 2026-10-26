@@ -3,7 +3,8 @@
 __pycache__/
 *.pyc
 .env
-
+CLAUDE.md
+.vscode/
 
 # Unity 
 /unity-client/[Ll]ibrary/
