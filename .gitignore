@@ -5,6 +5,7 @@ __pycache__/
 .env
 CLAUDE.md
 .vscode/
+docs/PROJECT_STATUS.md
 
 # Unity 
 /unity-client/[Ll]ibrary/
