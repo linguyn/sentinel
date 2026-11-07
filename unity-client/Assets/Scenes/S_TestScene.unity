@@ -3200,8 +3200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5256161a847db6648903b444b50c6562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlMode
-  humanIntent: {fileID: 2083602918}
-  actionExecutor: {fileID: 173387362}
+  humanInputComponents:
+  - {fileID: 2083602918}
 --- !u!1 &1988248159
 GameObject:
   m_ObjectHideFlags: 0

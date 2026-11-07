@@ -37,9 +37,6 @@ public class SessionManager : MonoBehaviour {
 
         actionExecutor.CancelCurrent();
 
-        CommonIntent.MoveDirection = Vector3.zero;
-        CommonIntent.Actions = PlayerAction.None;
-
         apiClients.ClearActionResponse();
 
         controlMode.CurrentMode = ControlSource.Human;
