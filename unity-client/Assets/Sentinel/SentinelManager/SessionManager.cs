@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
 
 public class SessionManager : MonoBehaviour {
     [SerializeField] private ApiClients apiClients;

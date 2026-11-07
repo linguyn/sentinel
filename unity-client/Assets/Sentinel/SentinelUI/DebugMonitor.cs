@@ -1,11 +1,10 @@
 ﻿
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class SentinelDebugMonitor : MonoBehaviour {
     [Header("Data Sources")]
-    [SerializeField, FormerlySerializedAs("aiIntent")] private ActionExecutor actionExecutor;
+    [SerializeField] private ActionExecutor actionExecutor;
     [SerializeField] private Transform playerTransform;
 
     [Header("UI Values")]

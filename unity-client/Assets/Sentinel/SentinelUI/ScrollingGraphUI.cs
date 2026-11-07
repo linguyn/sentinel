@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 public class ScrollingGraphUI : MaskableGraphic {
     [Header("Data Source")]
-    [SerializeField, FormerlySerializedAs("aiIntent")] private ActionExecutor actionExecutor;
+    [SerializeField] private ActionExecutor actionExecutor;
 
     [Header("Graph Settings")]
     [SerializeField] private float windowSeconds = 15f;
