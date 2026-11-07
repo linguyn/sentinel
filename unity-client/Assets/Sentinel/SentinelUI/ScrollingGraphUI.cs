@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class ScrollingGraphUI : MaskableGraphic {
     [Header("Data Source")]
-    [SerializeField] private AIIntent aiIntent;
+    [SerializeField, FormerlySerializedAs("aiIntent")] private ActionExecutor actionExecutor;
 
     [Header("Graph Settings")]
     [SerializeField] private float windowSeconds = 15f;
@@ -63,13 +64,13 @@ public class ScrollingGraphUI : MaskableGraphic {
     }
 
     private float ReadValue() {
-        if (aiIntent == null || aiIntent.Tracker == null)
+        if (actionExecutor == null || actionExecutor.Tracker == null)
             return 0f;
 
-        if (aiIntent.Tracker.Status != ActionStatus.Running)
+        if (actionExecutor.Tracker.Status != ActionStatus.Running)
             return 0f;
 
-        return aiIntent.Tracker.TimeWithoutProgress;
+        return actionExecutor.Tracker.TimeWithoutProgress;
     }
 
     protected override void OnPopulateMesh(VertexHelper vh) {

@@ -1,10 +1,11 @@
 ﻿
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class SentinelDebugMonitor : MonoBehaviour {
     [Header("Data Sources")]
-    [SerializeField] private AIIntent aiIntent;
+    [SerializeField, FormerlySerializedAs("aiIntent")] private ActionExecutor actionExecutor;
     [SerializeField] private Transform playerTransform;
 
     [Header("UI Values")]
@@ -16,7 +17,7 @@ public class SentinelDebugMonitor : MonoBehaviour {
     [SerializeField] private TMP_Text actionResultValue;
 
     private void Update() {
-        if (aiIntent == null || playerTransform == null)
+        if (actionExecutor == null || playerTransform == null)
             return;
 
         UpdatePlayerPosition();
@@ -31,7 +32,7 @@ public class SentinelDebugMonitor : MonoBehaviour {
     }
 
     private void UpdateActionInformation() {
-        ActionTracker tracker = aiIntent.Tracker;
+        ActionTracker tracker = actionExecutor.Tracker;
 
         ActionStatus status = tracker.Status;
 
@@ -62,12 +63,12 @@ public class SentinelDebugMonitor : MonoBehaviour {
 
         // Currently MOVE is the only supported AI action.
         if (tracker.ActionName == "move") {
-            Vector3 target = aiIntent.TargetPosition;
+            Vector3 target = actionExecutor.TargetPosition;
 
             targetPositionValue.text =
                 $"({target.x:F2}, {target.y:F2}, {target.z:F2})";
 
-            // Match AIIntent's horizontal distance calculation.
+            // Match MoveActionAdapter's horizontal distance calculation.
             Vector3 direction = target - playerTransform.position;
             direction.y = 0f;
 

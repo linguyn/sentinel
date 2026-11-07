@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public class SessionManager : MonoBehaviour {
     [SerializeField] private ApiClients apiClients;
-    [SerializeField] private AIIntent aiIntent;
+    [SerializeField] private ActionExecutor actionExecutor;
     [SerializeField] private ControlMode controlMode;
 
     public bool IsRunning { get; private set; }
@@ -35,6 +36,8 @@ public class SessionManager : MonoBehaviour {
         IsRunning = false;
         OnSessionStateChanged?.Invoke(false);
 
+        actionExecutor.CancelCurrent();
+
         CommonIntent.MoveDirection = Vector3.zero;
         CommonIntent.Actions = PlayerAction.None;
 
@@ -48,7 +51,7 @@ public class SessionManager : MonoBehaviour {
     private async Awaitable RunSessionLoop() {
         while (IsRunning) {
   
-            aiIntent.ResetActionCompletion();
+            actionExecutor.ResetActionCompletion();
 
             WorldObservationManager.SetWorldObservation();
 
@@ -66,7 +69,7 @@ public class SessionManager : MonoBehaviour {
                 break;
             }
 
-            while (IsRunning && !aiIntent.ActionCompleted) {
+            while (IsRunning && !actionExecutor.ActionCompleted) {
                 await Awaitable.NextFrameAsync();
             }
 
@@ -78,7 +81,7 @@ public class SessionManager : MonoBehaviour {
     }
 
     private void RecordActionHistory() {
-        ActionTracker tracker = aiIntent.Tracker;
+        ActionTracker tracker = actionExecutor.Tracker;
 
         if (!tracker.IsFinished) { return; }
 

@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 173387361}
   - component: {fileID: 173387362}
   m_Layer: 0
-  m_Name: AIIntent
+  m_Name: ActionExecutor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,11 +231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cee7c06b78d111439c9ca171accb31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIIntent
-  stopDistance: 0.2
-  playerTransform: {fileID: 2083602919}
   apiClients: {fileID: 579922135}
-  stuckLimit: 3
-  minProgress: 0.05
+  actionTimeout: 30
 --- !u!1 &212961139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,7 +2199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5de9669cae211348bbfb8432e154122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SentinelDebugMonitor
-  aiIntent: {fileID: 173387362}
+  actionExecutor: {fileID: 173387362}
   playerTransform: {fileID: 2083602919}
   playerPositionValue: {fileID: 1547200015}
   targetPositionValue: {fileID: 952550668}
@@ -2531,7 +2528,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  aiIntent: {fileID: 173387362}
+  actionExecutor: {fileID: 173387362}
   windowSeconds: 15
   sampleInterval: 0.1
   maxValue: 3
@@ -2890,6 +2887,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 513775077751685451, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2083602918}
+    - targetCorrespondingSourceObject: {fileID: 513775077751685451, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2083602928}
+    - targetCorrespondingSourceObject: {fileID: 513775077751685451, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2083602927}
   m_SourcePrefab: {fileID: 100100000, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
 --- !u!1 &1811834662
 GameObject:
@@ -3198,7 +3201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlMode
   humanIntent: {fileID: 2083602918}
-  aiIntent: {fileID: 173387362}
+  actionExecutor: {fileID: 173387362}
 --- !u!1 &1988248159
 GameObject:
   m_ObjectHideFlags: 0
@@ -3418,7 +3421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SessionManager
   apiClients: {fileID: 579922135}
-  aiIntent: {fileID: 173387362}
+  actionExecutor: {fileID: 173387362}
   controlMode: {fileID: 1969605914}
 --- !u!4 &2065530194 stripped
 Transform:
@@ -3558,6 +3561,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4974643591679356409, guid: 6e9262f847157f24abb659a603cb5dc5, type: 3}
   m_PrefabInstance: {fileID: 1592918004}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2083602927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083602911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733be9b88f717394a85fbd9cbf6f6ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractActionAdapter
+  playerInteraction: {fileID: 0}
+--- !u!114 &2083602928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083602911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae9c285a9f07c64f951b3edaab59ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoveActionAdapter
+  playerTransform: {fileID: 0}
+  stopDistance: 0.2
+  stuckLimit: 3
+  minProgress: 0.05
 --- !u!1 &2100000000
 GameObject:
   m_ObjectHideFlags: 0

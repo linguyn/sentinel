@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum ControlSource {
     Human = 0, 
@@ -12,7 +13,7 @@ public class ControlMode : MonoBehaviour {
     [SerializeField]
     private HumanIntent humanIntent; 
     [SerializeField]
-    private AIIntent aiIntent;
+    private ActionExecutor actionExecutor;
 
     public ControlSource CurrentMode {
         get { return currentMode; }
